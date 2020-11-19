@@ -1,6 +1,8 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
-if (!firebase.apps.length) {
+if (!firebase.apps.length || firebase.apps.length === 0) {
   firebase.initializeApp({
     apiKey: 'AIzaSyA1Qhp320bhOrl4GeRxZz6hTp7HHmqkPDg',
     authDomain: 'quizparty-42a0e.firebaseapp.com',

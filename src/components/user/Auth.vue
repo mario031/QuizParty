@@ -6,11 +6,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import firebase from '@/plugins/firebase';
 
 export default Vue.extend({
   mounted() {
-    const firebaseui = require("firebaseui");
+    const { auth } = require("firebaseui");
     require('firebaseui/dist/firebaseui.css');
 
     const uiConfig = {
@@ -20,19 +21,27 @@ export default Vue.extend({
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
     };
-    const authUi = new firebaseui.auth.AuthUI(firebase.auth());
+    const authUi = new auth.AuthUI(firebase.auth());
     authUi.start('#firebaseui-auth-container', uiConfig);
   },
+  methods: {
+    ...mapActions('user', ['login']),
+  },
+  created () {
+    firebase.auth().onAuthStateChanged((user)=> {
+      if (user) {
+        this.login(user);
+      }
+    })
+  },
+  computed: {
+    hoge() {
+      console.log('huga');
+      return this.$store.state;
+    }
+  }
 });
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 </style>

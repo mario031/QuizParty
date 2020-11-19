@@ -11,6 +11,11 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  // 全てのルート変更時にredirect.tsが読み込まれる
+  router: {
+    middleware: 'redirect',
+  },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
 
